@@ -1,23 +1,72 @@
+# Lane Detection using Hough Transform
 
+A professional perception algorithm for lane detection in autonomous vehicle systems, utilizing classic computer vision techniques in Python.
 
-### **Project Description**
+![Detection Pipeline](assets/images/pipeline.png)
 
-This project presents a perception algorithm for lane detection in self-driving car systems, relying purely on vision-based data from a camera. It demonstrates a complete, end-to-end lane detection method using classic computer vision techniques. The core of the project is a foundational approach based on **edge detection** and the **Hough Transform** algorithm, which serves as a baseline for identifying straight lane lines in both images and video streams. The process is broken down into a series of logical steps, from initial image processing to final visualization of the detected lanes.
+## 📋 Overview
 
-### **Technical Stack**
-* **Programming Language**: Python
-* **Libraries**:
-    * **OpenCV**: For core computer vision tasks, including image processing and video handling.
-    * **NumPy**: For numerical operations, particularly for manipulating image arrays.
-    * **Matplotlib**: Used for visualizing the processed images and results.
+This project implements an end-to-end lane detection pipeline that identifies road lanes from both static images and video streams. By leveraging OpenCV, the algorithm processes visual data through several stages—from noise reduction to geometric transformation—to accurately overlay lane boundaries on the original footage.
 
-### **Algorithm Steps**
-The lane detection pipeline follows these sequential steps:
-1.  **Convert to Grayscale**: Reduces the image to a single color channel to simplify processing.
-2.  **Noise Reduction**: Applies filters to remove noise and smooth the image.
-3.  **Edge Detection**: Uses an algorithm like Canny edge detection to identify sharp changes in image intensity.
-4.  **Region of Interest**: Masks the image to focus only on the relevant area where lanes are expected to be.
-5.  **Detecting Straight Lines**: Applies the **Hough Transform** to identify potential straight lines within the defined region.
-6.  **Averaging the Lines**: Combines the detected line segments into two solid lines representing the left and right lanes.
-7.  **Displaying Final Image**: Overlays the detected lanes onto the original image for a clear visual representation.
-8.  **Video Processing**: Extends the algorithm to apply the same steps to each frame of a video stream to achieve real-time lane detection.
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Python 3.7+
+- pip (Python package installer)
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   cd lane-detection
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+### Usage
+
+The main script is located in the `src/` directory. You can toggle between image and video processing by modifying the `MODE` variable in `src/lane_detection.py`.
+
+Run the application:
+```bash
+python3 src/lane_detection.py
+```
+
+## 🛠 Technical Pipeline
+
+The detection process follows a rigorous computer vision workflow:
+
+1.  **Grayscale Conversion**: Simplifies the input image to a single channel to reduce computational complexity.
+2.  **Gaussian Blur**: Applies a (5, 5) kernel to smooth the image and suppress high-frequency noise that could cause false edge detection.
+3.  **Canny Edge Detection**: Identifies sharp gradients in intensity to pinpoint potential lane boundaries.
+4.  **Region of Interest (ROI)**: Masks the image to focus only on the triangular area in front of the vehicle where lanes are statistically likely to appear.
+5.  **Hough Transform**: Extracts straight lines from the edge-detected pixels by transforming them into the Hough space.
+6.  **Linear Regression & Averaging**: Categorizes detected lines into left and right lanes based on their slopes and averages them to produce smooth, consistent lane markers.
+7.  **Overlay**: Re-projects the detected lanes onto the original RGB frame with transparency.
+
+## 📁 Repository Structure
+
+```text
+├── assets/
+│   ├── images/         # Sample images and pipeline documentation
+│   └── videos/         # Sample video footage for testing
+├── src/
+│   └── lane_detection.py   # Refactored source code
+├── requirements.txt    # Project dependencies
+└── README.md           # Project documentation
+```
+
+## 🧰 Tech Stack
+
+*   **Python**: Core programming language.
+*   **OpenCV**: Image processing and computer vision.
+*   **NumPy**: High-performance array manipulation.
+*   **Matplotlib**: Visualization and debugging.
+
+---
+*Original algorithm by Dhruv Pathak.*
